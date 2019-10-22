@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Button from './Button'
+import Button from '@material-ui/core/Button'
 import axios from 'Axios'
 
 const Controls = () => {
@@ -12,12 +12,18 @@ handleDirection = direction => {
     url: `${baseUrl}move/ `,
     method: "POST",
     headers: {
-      Authorization: `${key}`
+      // Authorization: `${key}`
     },
     data: {
       direction: direction
     }
   })
+  .then(res=> {
+    console.log("Headed ", res.data);
+  })
+  .catch(err => {
+    console.log("Shit!", err);
+  });
 }
 
   return (
