@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Controls from './Controls'
+import Actions from './Actions'
+import Map from './Map'
 import axios from 'axios'
 
 const key = process.env.REACT_APP_SECRET_KEY
@@ -343,9 +345,22 @@ const getCoinBalance = () => {
 
 const Main = () => {
   return (
+<<<<<<< HEAD
+    <div className="wrapper">
+      <p>Treasure Island</p>
+      <div className="top-wrap">
+        <Map/>
+        {/* <Details/> */}
+      </div>
+      <div className="bottom-wrap">
+        <Controls/>
+        <Actions/>
+      </div>
+=======
     <div>
       <p onClick={testIt}>This is the main content</p>
       <Controls/>
+>>>>>>> master
     </div>
   )
 };
