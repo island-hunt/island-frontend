@@ -12,14 +12,14 @@ const bcUrl = 'http://lambda-treasure-hunt.herokuapp.com/api/bc/'
 const ourDB = 'https://treasure-friends.herokuapp.com/rooms/'
 
 
+// ================== MAGIC CODE HERE ===================
+axios.interceptors.request.use(
+options => {
+  options.headers.authorization = `Token ${key}`
+return options},
+error => {return Promise.reject(error)}
+)
 
-//Grab the rooms from our DB when we start up
-// useEffect(() => {
-//   effect
-//   return () => {
-//     cleanup
-//   };
-// }, [input])
 
 const Main = props => {
   const [allRooms,setAllRooms] = useState()
@@ -29,12 +29,85 @@ const Main = props => {
   
   useEffect(() => {
     //init player
-    setAllRooms(getAllRooms)
+    console.log(currentRoom)
+    //grab all the rooms
     console.log(allRooms)
-  },[])
+  },[allRooms, currentRoom])
+
+
+
+  // ================== OUR API ENDPOINTS ===================
+  const getAllRooms = () => {
+    axios
+      .get(
+        ourDB
+      )
+      .then(response => {
+        setAllRooms(response.data)
+        console.log(response.data)
+        console.log(allRooms)
+      })
+      .catch(error => {console.log(error.message);})
+  }
+  // Returns an array of rooms containing the following data points:
+  // coordinates: "xx"
+  // description: "xx"
+  // elevation: "xx"
+  // exits: "xx"
+  // id: 1  <== this is the DB ID, NOT the room ID
+  // items: "xx"
+  // room_id: "xx"
+  // terrain: "xx"
+  // title: "xx"
+  //========================================================
+  const saveARoom = (roomData) => {
+    console.log(roomData)
+    axios
+      .post(
+        ourDB,
+        roomData
+      )
+      .then(response => {
+        console.log(response.data)
+        return response.data
+      })
+      .catch(error => {console.log(error.message);})
+  }
+  //========================================================
+  const initPlayer = () => {
+    let newUrl = `${baseUrl}init/`
+    axios
+      .get(
+        newUrl
+      )
+      .then(response => {
+        setCurrentRoom(response.data)
+      })
+      .catch(error => {console.log(error.message);})
+  }
+  // cooldown: 1
+  // coordinates: "(60,61)"
+  // description: "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction."
+  // elevation: 0
+  // errors: []
+  // exits: (3) ["n", "s", "w"]
+  // items: []
+  // messages: []
+  // players: ["player241"]
+  // room_id: 10
+  // terrain: "NORMAL"
+  // title: "A misty room"
+  //========================================================
+  useEffect(() => {
+      getAllRooms()
+      initPlayer()
+    }
+  ,[])
+  
+  
   return (
     <div className="wrapper">
-      <p onClick={testIt}>Treasure Island</p>
+      <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
           <Map/>
@@ -69,61 +142,8 @@ const Main = props => {
 };
 
 
-const testIt = () => {
-let roomData ={
-"coordinates": "zz",
-"description": "zz",
-"elevation": "zz",
-"exits": "zz",
-"items": "zz",
-"room_id": "zz",
-"terrain": "zz",
-"title": "zz"
-}
-saveARoom(roomData)
-}
-// ================== MAGIC CODE HERE ===================
-axios.interceptors.request.use(
-options => {options.headers.authorization = `Token ${key}`
-return options},
-error => {return Promise.reject(error)}
-)
-// ================== OUR API ENDPOINTS ===================
-const getAllRooms = () => {
-  axios
-    .get(
-      ourDB
-    )
-    .then(response => {
-      return response.data
-    })
-    .catch(error => {console.log(error.message);})
-}
-// Returns an array of rooms containing the following data points:
-// coordinates: "xx"
-// description: "xx"
-// elevation: "xx"
-// exits: "xx"
-// id: 1  <== this is the DB ID, NOT the room ID
-// items: "xx"
-// room_id: "xx"
-// terrain: "xx"
-// title: "xx"
-//========================================================
-const saveARoom = (roomData) => {
-  console.log(roomData)
-  axios
-    .post(
-      ourDB,
-      roomData
-    )
-    .then(response => {
-      console.log(response.data)
-      return response.data
-    })
-    .catch(error => {console.log(error.message);})
-}
-//========================================================
+
+
 // ================== THE API ENDPOINTS ===================
 const getStatus = () => {
   let newUrl = `${baseUrl}status/`
@@ -149,31 +169,7 @@ const getStatus = () => {
 // status: []
 // strength: 10
 //========================================================
-const initPlayer = () => {
-  let newUrl = `${baseUrl}init/`
-  console.log(newUrl)
-  axios
-    .get(
-      newUrl
-    )
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(error => {console.log(error.message);})
-}
-// cooldown: 1
-// coordinates: "(60,61)"
-// description: "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction."
-// elevation: 0
-// errors: []
-// exits: (3) ["n", "s", "w"]
-// items: []
-// messages: []
-// players: ["player241"]
-// room_id: 10
-// terrain: "NORMAL"
-// title: "A misty room"
-//========================================================
+
 const movePlayer = (dir) => {
   let newUrl = `${baseUrl}move/`
   axios
