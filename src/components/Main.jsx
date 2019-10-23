@@ -1,15 +1,44 @@
 import React, {useState, useEffect} from 'react'
 import Controls from './Controls'
+import Map from './Map'
+import Details from './Details'
 import axios from 'axios'
 
 const key = process.env.REACT_APP_SECRET_KEY
 const baseUrl = 'http://lambda-treasure-hunt.herokuapp.com/api/adv/'
 const bcUrl = 'http://lambda-treasure-hunt.herokuapp.com/api/bc/'
+const ourDB = 'https://treasure-friends.herokuapp.com/rooms/'
 
+
+
+//Grab the rooms from our DB when we start up
+// useEffect(() => {
+//   effect
+//   return () => {
+//     cleanup
+//   };
+// }, [input])
+
+const Main = props => {
+  const [allRooms,setAllRooms] = useState()
+  const [currentRoom, setCurrentRoom] = useState()
+  useEffect(() => {
+    //init player
+    setAllRooms(getAllRooms)
+  },[])
+  return (
+    <div>
+      <p onClick={testIt}>This is the main content</p>
+      <Map rooms={allRooms}/>
+      <Controls/>
+      <Details room={currentRoom}/>
+    </div>
+  )
+};
 
 
 const testIt = () => {
-  moveWisePlayer("s","10")
+  getAllRooms()
 }
 // ================== MAGIC CODE HERE ===================
 axios.interceptors.request.use(
@@ -17,6 +46,29 @@ options => {options.headers.authorization = `Token ${key}`
 return options},
 error => {return Promise.reject(error)}
 )
+// ================== OUR API ENDPOINTS ===================
+const getAllRooms = () => {
+  axios
+    .get(
+      ourDB
+    )
+    .then(response => {
+      console.log(response.data)
+      return response.data
+    })
+    .catch(error => {console.log(error.message);})
+}
+// Returns an array of rooms containing the following data points:
+// coordinates: "xx"
+// description: "xx"
+// elevation: "xx"
+// exits: "xx"
+// id: 1  <== this is the DB ID, NOT the room ID
+// items: "xx"
+// room_id: "xx"
+// terrain: "xx"
+// title: "xx"
+//========================================================
 // ================== THE API ENDPOINTS ===================
 const getStatus = () => {
   let newUrl = `${baseUrl}status/`
@@ -341,13 +393,6 @@ const getCoinBalance = () => {
   //  "errors": []
 //========================================================
 
-const Main = () => {
-  return (
-    <div>
-      <p onClick={testIt}>This is the main content</p>
-      <Controls/>
-    </div>
-  )
-};
+
 
 export default Main
