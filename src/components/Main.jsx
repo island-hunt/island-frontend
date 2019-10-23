@@ -345,7 +345,6 @@ const getCoinBalance = () => {
 
 const Main = () => {
   return (
-<<<<<<< HEAD
     <div className="wrapper">
       <p>Treasure Island</p>
       <div className="top-wrap">
@@ -356,11 +355,6 @@ const Main = () => {
         <Controls/>
         <Actions/>
       </div>
-=======
-    <div>
-      <p onClick={testIt}>This is the main content</p>
-      <Controls/>
->>>>>>> master
     </div>
   )
 };
