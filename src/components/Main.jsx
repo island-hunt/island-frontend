@@ -30,10 +30,11 @@ const Main = props => {
   useEffect(() => {
     //init player
     setAllRooms(getAllRooms)
+    console.log(allRooms)
   },[])
   return (
     <div className="wrapper">
-      <p>Treasure Island</p>
+      <p onClick={testIt}>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
           <Map/>
@@ -70,14 +71,14 @@ const Main = props => {
 
 const testIt = () => {
 let roomData ={
-"coordinates": "aa",
-"description": "bb",
-"elevation": "cc",
-"exits": "dd",
-"items": "ee",
-"room_id": "ff",
-"terrain": "gg",
-"title": "hh",
+"coordinates": "zz",
+"description": "zz",
+"elevation": "zz",
+"exits": "zz",
+"items": "zz",
+"room_id": "zz",
+"terrain": "zz",
+"title": "zz"
 }
 saveARoom(roomData)
 }
@@ -94,7 +95,6 @@ const getAllRooms = () => {
       ourDB
     )
     .then(response => {
-      console.log(response.data)
       return response.data
     })
     .catch(error => {console.log(error.message);})
@@ -111,10 +111,11 @@ const getAllRooms = () => {
 // title: "xx"
 //========================================================
 const saveARoom = (roomData) => {
+  console.log(roomData)
   axios
     .post(
       ourDB,
-      {roomData}
+      roomData
     )
     .then(response => {
       console.log(response.data)
