@@ -352,7 +352,7 @@ const Main = () => {
         {/* <Details/> */}
       </div>
       <div className="bottom-wrap">
-        <Controls/>
+        <Controls movePlayer={movePlayer}/>
         <Actions/>
       </div>
     </div>
