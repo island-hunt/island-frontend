@@ -348,6 +348,6 @@ const Main = () => {
       <Controls/>
     </div>
   )
-}
+};
 
 export default Main
