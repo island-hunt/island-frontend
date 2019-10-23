@@ -12,7 +12,7 @@ const headthing = `Token ${key}`;
 const Main = () => {
   return (
     <div className="wrapper">
-      <p>This is the main content</p>
+      <p>Treasure Island</p>
       <div className="top-wrap">
         <Map/>
         {/* <Details/> */}
