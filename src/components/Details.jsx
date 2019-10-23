@@ -11,15 +11,7 @@ import axios from 'axios';
 
 const Details = (props) => {
 	const [detailsTable, setDetails] = useState();
-	useEffect(() => {
-		axios
-			.post()
-		return () => {
-			effect
-		};
-	}, [input]);
-
-	return (
+		return (
 		<div>
 			<table>
 				<tr>

@@ -22,6 +22,9 @@ const ourDB = 'https://treasure-friends.herokuapp.com/rooms/'
 const Main = props => {
   const [allRooms,setAllRooms] = useState()
   const [currentRoom, setCurrentRoom] = useState()
+
+
+  
   useEffect(() => {
     //init player
     setAllRooms(getAllRooms)
@@ -29,16 +32,26 @@ const Main = props => {
   return (
     <div>
       <p onClick={testIt}>This is the main content</p>
-      <Map rooms={allRooms}/>
+      {/* <Map rooms={allRooms}/>
       <Controls/>
-      <Details room={currentRoom}/>
+      <Details room={currentRoom}/> */}
     </div>
   )
 };
 
 
 const testIt = () => {
-  getAllRooms()
+let roomData ={
+"coordinates": "aa",
+"description": "bb",
+"elevation": "cc",
+"exits": "dd",
+"items": "ee",
+"room_id": "ff",
+"terrain": "gg",
+"title": "hh",
+}
+saveARoom(roomData)
 }
 // ================== MAGIC CODE HERE ===================
 axios.interceptors.request.use(
@@ -68,6 +81,19 @@ const getAllRooms = () => {
 // room_id: "xx"
 // terrain: "xx"
 // title: "xx"
+//========================================================
+const saveARoom = (roomData) => {
+  axios
+    .post(
+      ourDB,
+      {roomData}
+    )
+    .then(response => {
+      console.log(response.data)
+      return response.data
+    })
+    .catch(error => {console.log(error.message);})
+}
 //========================================================
 // ================== THE API ENDPOINTS ===================
 const getStatus = () => {
