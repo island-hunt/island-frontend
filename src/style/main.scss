@@ -1,13 +1,17 @@
 // main 
 
 .wrapper {
+    padding: 20px;
     display: flex;
     flex-direction: column;
 
     .top-wrap {
+        width: 100%;
         display: flex;
     }
     .bottom-wrap {
+        width: 100%;
         display: flex;
+        justify-content: space-around;
     }
 }
