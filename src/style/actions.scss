@@ -1,0 +1,15 @@
+// action button style
+
+.actions-wrap {
+    margin: 40px;
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    Button {
+        margin: 3px;
+        border: 1px solid $treasureGray;
+    }
+}
