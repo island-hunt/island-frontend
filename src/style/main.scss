@@ -14,7 +14,14 @@
         display: flex;
         justify-content: space-between;
 
-
+        .map-wrapper {
+            border: 3px solid $treasureGray;
+        }
+        .message-wrapper {
+            margin-left: 10px;
+            width: 100%;
+            border: 3px solid $treasureGray;
+        }
 
     }
     .bottom-wrap {
