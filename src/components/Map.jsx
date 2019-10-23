@@ -9,7 +9,7 @@ const Map = ({allRooms}) => {
             <p>It's a Map.</p>
             <div
               key={room.room_id}
-              className="rooms-div"
+              className="rooms-wrap"
               style={{
                 borderRight: room.exits.includes("e") ? "none" : "2px solid #e3e3e3",
                 borderLeft: room.exits.includes("w") ? "none" : "2px solid #e3e3e3",
