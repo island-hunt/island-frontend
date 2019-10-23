@@ -2,7 +2,22 @@
 
 .map-wrap {
     height: 490px;
-    width: 800px;
+    width: 100%;
     background: $treasurePrimary;
     color: $treasureWhite;
+
+    .room-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10px;
+        width: 10px;
+        #av-street-view {
+            font-size: 2rem;
+        }
+        
+        #fa-circle {
+            font-size: 1rem;
+        }
+    }
 }
