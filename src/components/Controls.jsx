@@ -13,6 +13,7 @@ const Controls = (props) => {
       </div>
       <div className="button-wrap">
         <Button variant="contained" className="West" onClick={() => props.movePlayer("w")}>W</Button>
+        {/* <Button variant="contained" className="West" onClick={() => props.moveWise()}>Wise</Button> */}
         <Button variant="contained" className="East" onClick={() => props.movePlayer("e")}>E</Button>
       </div>
       

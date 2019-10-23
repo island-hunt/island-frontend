@@ -44,7 +44,7 @@ const Main = props => {
         </div>
       </div>
       <div className="bottom-wrap">
-        <Controls movePlayer={movePlayer}/>
+        <Controls movePlayer={movePlayer} moveWise={moveWisePlayer}/>
         <Actions 
           receiveThing={receiveThing}
           takeTreasure={takeTreasure}
