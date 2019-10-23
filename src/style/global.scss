@@ -1,0 +1,35 @@
+//global styling
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box !important;
+}
+
+body {
+	font-family: 'Harmattan', cursive;
+	font-size: 2rem;
+	background-color: $treasureWhite;
+	color: $treasureBlack;
+}
+
+li,
+input,
+label,
+textarea {
+	font-family: 'Harmattan', cursive;
+}
+
+ul {
+	padding: 0
+}
+hr {
+	border: none;
+	border-top: 1px solid rgba(0, 0, 0, 0.12);
+	width: 100%;
+	margin: 20px 0;
+}
+
+a {
+	text-decoration: none;
+}

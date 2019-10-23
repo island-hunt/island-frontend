@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Button from '@material-ui/core/Button'
-import axios from 'Axios'
+
 
 const Controls = () => {
   
-
-const baseUrl = 'https://lambda-treasure-hunt.herokuapp.com/api/adv/'
-
-handleDirection = direction => {
-  axios({
-    url: `${baseUrl}move/ `,
-    method: "POST",
-    headers: {
-      // Authorization: `${key}`
-    },
-    data: {
-      direction: direction
-    }
-  })
-  .then(res=> {
-    console.log("Headed ", res.data);
-  })
-  .catch(err => {
-    console.log("Shit!", err);
-  });
-}
-
   return (
-    <div>
-      <p>controls here</p>
-      <Button name="North" onClick={() => this.handleDirection("n")}><i className="fas fa-arrow-up"/></Button>
-      <Button name="South" onClick={() => this.handleDirection("s")}><i className="fas fa-arrow-down"/></Button>
-      <Button name="East" onClick={() => this.handleDirection("e")}><i className="fas fa-arrow-right"/></Button>
-      <Button name="West" onClick={() => this.handleDirection("w")}><i className="fas fa-arrow-left"/></Button>
+    <div className="control-wrap">
+      <p>Which Way?</p>
+      <Button variant="contained" className="North" onClick={() => this.handleDirection("n")}>N</Button>
+      <Button variant="contained" className="South" onClick={() => this.handleDirection("s")}>S</Button>
+      <Button variant="contained" className="East" onClick={() => this.handleDirection("e")}>E</Button>
+      <Button variant="contained" className="West" onClick={() => this.handleDirection("w")}>W</Button>
     </div>
   )
 }

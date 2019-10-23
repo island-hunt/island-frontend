@@ -1,5 +1,7 @@
 import React from 'react'
 import Controls from './Controls'
+import Actions from './Actions'
+import Map from './Map'
 import axios from 'axios'
 
 const key = process.env.SECRET_KEY
@@ -9,9 +11,16 @@ const headthing = `Token ${key}`;
 
 const Main = () => {
   return (
-    <div>
+    <div className="wrapper">
       <p>This is the main content</p>
-      <Controls/>
+      <div className="top-wrap">
+        <Map/>
+        {/* <Details/> */}
+      </div>
+      <div className="bottom-wrap">
+        <Controls/>
+        <Actions/>
+      </div>
     </div>
   )
 }
