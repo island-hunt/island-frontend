@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Controls from './Controls'
 import Actions from './Actions'
+// import Details from './Details'
+// import Message from './Message'
 import Map from './Map'
 import axios from 'axios'
 
@@ -348,12 +350,33 @@ const Main = () => {
     <div className="wrapper">
       <p>Treasure Island</p>
       <div className="top-wrap">
-        <Map/>
-        {/* <Details/> */}
+        <div className="map-wrapper">
+          <Map/>
+        </div>
+        <div className="message-wrapper">
+          {/* <Details/>
+          <Message/> */}
+        </div>
       </div>
       <div className="bottom-wrap">
         <Controls movePlayer={movePlayer}/>
-        <Actions/>
+        <Actions 
+          receiveThing={receiveThing}
+          takeTreasure={takeTreasure}
+          dropTreasure={dropTreasure}
+          sellTreasure={sellTreasure}
+          confirmSellTreasure={confirmSellTreasure}
+          wearThing={wearThing}
+          examineThing={examineThing}
+          carryThing={carryThing}
+          pray={pray}
+          flyPlayer={flyPlayer}
+          dash={dashPlayer}
+          transMog={transMog}
+          changeName={changeName}
+          getStatus={getStatus}
+          getCoinBalance={getCoinBalance}
+        />
       </div>
     </div>
   )
