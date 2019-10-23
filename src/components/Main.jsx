@@ -32,11 +32,37 @@ const Main = props => {
     setAllRooms(getAllRooms)
   },[])
   return (
-    <div>
-      <p onClick={testIt}>This is the main content</p>
-      {/* <Map rooms={allRooms}/>
-      <Controls/>
-      <Details room={currentRoom}/> */}
+    <div className="wrapper">
+      <p>Treasure Island</p>
+      <div className="top-wrap">
+        <div className="map-wrapper">
+          <Map/>
+        </div>
+        <div className="message-wrapper">
+          {/* <Details/>
+          <Message/> */}
+        </div>
+      </div>
+      <div className="bottom-wrap">
+        <Controls movePlayer={movePlayer}/>
+        <Actions 
+          receiveThing={receiveThing}
+          takeTreasure={takeTreasure}
+          dropTreasure={dropTreasure}
+          sellTreasure={sellTreasure}
+          confirmSellTreasure={confirmSellTreasure}
+          wearThing={wearThing}
+          examineThing={examineThing}
+          carryThing={carryThing}
+          pray={pray}
+          flyPlayer={flyPlayer}
+          dash={dashPlayer}
+          transMog={transMog}
+          changeName={changeName}
+          getStatus={getStatus}
+          getCoinBalance={getCoinBalance}
+        />
+      </div>
     </div>
   )
 };
@@ -421,45 +447,6 @@ const getCoinBalance = () => {
   //  "errors": []
 //========================================================
 
-<<<<<<< HEAD
 
-=======
-const Main = () => {
-  return (
-    <div className="wrapper">
-      <p>Treasure Island</p>
-      <div className="top-wrap">
-        <div className="map-wrapper">
-          <Map/>
-        </div>
-        <div className="message-wrapper">
-          {/* <Details/>
-          <Message/> */}
-        </div>
-      </div>
-      <div className="bottom-wrap">
-        <Controls movePlayer={movePlayer}/>
-        <Actions 
-          receiveThing={receiveThing}
-          takeTreasure={takeTreasure}
-          dropTreasure={dropTreasure}
-          sellTreasure={sellTreasure}
-          confirmSellTreasure={confirmSellTreasure}
-          wearThing={wearThing}
-          examineThing={examineThing}
-          carryThing={carryThing}
-          pray={pray}
-          flyPlayer={flyPlayer}
-          dash={dashPlayer}
-          transMog={transMog}
-          changeName={changeName}
-          getStatus={getStatus}
-          getCoinBalance={getCoinBalance}
-        />
-      </div>
-    </div>
-  )
-};
->>>>>>> c0844e4332e29e77a84aa3479738a13607cf6030
 
 export default Main
