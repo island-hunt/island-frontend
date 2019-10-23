@@ -9,7 +9,6 @@ const Actions = (props) => {
       <Button variant="contained" name="Sell" onClick={() => props.sellTreasure()}>Sell</Button>
       <Button variant="contained" name="Sell" onClick={() => props.confirmSellTreasure()}>Quick Sell</Button>
       <Button variant="contained" name="Wear" onClick={() => props.wearThing()}>Wear</Button>
-      <Button variant="contained" name="Remove" onClick={() => props.handleRemove()}>Remove</Button>
       <Button variant="contained" name="Examine" onClick={() => props.examineThing()}>Examine</Button>
       <Button variant="contained" name="Carry" onClick={() => props.carryThing()}>Carry</Button>
       <Button variant="contained" name="Receive" onClick={() => props.receiveThing()}>Receive</Button>

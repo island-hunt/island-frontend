@@ -110,7 +110,7 @@ const Main = props => {
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map/>
+          <Map allRooms={allRooms}/>
         </div>
         <div className="message-wrapper">
           {/* <Details/>
@@ -118,7 +118,7 @@ const Main = props => {
         </div>
       </div>
       <div className="bottom-wrap">
-        <Controls movePlayer={movePlayer}/>
+        <Controls movePlayer={movePlayer} moveWise={moveWisePlayer}/>
         <Actions 
           receiveThing={receiveThing}
           takeTreasure={takeTreasure}
