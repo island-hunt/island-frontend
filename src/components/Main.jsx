@@ -36,7 +36,7 @@ const Main = props => {
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map/>
+          <Map allRooms={allRooms}/>
         </div>
         <div className="message-wrapper">
           {/* <Details/>
