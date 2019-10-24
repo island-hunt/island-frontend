@@ -22,7 +22,7 @@ const ourDB = 'https://treasure-friends.herokuapp.com/rooms/'
 // }, [input])
 
 const Main = props => {
-  const [allRooms,setAllRooms] = useState()
+  const [allRooms, setAllRooms] = useState()
   const [currentRoom, setCurrentRoom] = useState()
 
 
@@ -36,7 +36,7 @@ const Main = props => {
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map allRooms={allRooms}/>
+          <Map allRooms={allRooms} currentRoom={currentRoom}/>
         </div>
         <div className="message-wrapper">
           {/* <Details/>
@@ -123,7 +123,7 @@ const saveARoom = (roomData) => {
     .catch(error => {console.log(error.message);})
 }
 //========================================================
-// ================== THE API ENDPOINTS ===================
+//================== THE API ENDPOINTS ===================
 const getStatus = () => {
   let newUrl = `${baseUrl}status/`
   console.log(newUrl)
