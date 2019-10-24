@@ -33,10 +33,10 @@ const Main = props => {
   },[])
   return (
     <div className="wrapper">
-      <p>Treasure Island</p>
+      <p className="">Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map allRooms={allRooms} currentRoom={currentRoom}/>
+          <Map getAllRooms={getAllRooms} allRooms={allRooms} currentRoom={currentRoom}/>
         </div>
         <div className="message-wrapper">
           {/* <Details/>

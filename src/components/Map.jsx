@@ -1,12 +1,13 @@
 import React from 'react'
 
-const Map = ({allRooms, currentRoom}) => {
+const Map = ({allRooms, currentRoom, getAllRooms}) => {
   console.log("current room", currentRoom)
   console.log("all rooms", allRooms)
-  if (currentRoom) {
+  console.log("get all", getAllRooms)
+  if (allRooms) {
   return(
     <div className="mapper-wrapper">
-      {currentRoom.map(room => {
+      {allRooms.map(room => {
         console.log("each room", room)
         
         return (
@@ -23,7 +24,7 @@ const Map = ({allRooms, currentRoom}) => {
               }}
             >
               <p classname="room-icon">
-                {room.title === currentRoom.title ? (
+                {room.title === allRooms.title ? (
                   <i id='fa-street-view' className="fa fa-street-view"></i>
                 ) : (
                     <i id='fa-circle' className="fas fa-circle"></i>
