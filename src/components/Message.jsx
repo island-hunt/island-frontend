@@ -5,10 +5,11 @@ import React from 'react';
 // 	"messages": ["You have walked north."]
 // }
 
-const Message = () => {
+const Message = (props) => {
+	console.log("message", props)
 	return (
 		<div>
-			{}
+			<li>{props.message}</li>
 		</div>
 	)
 };

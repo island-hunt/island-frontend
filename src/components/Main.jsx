@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Controls from './Controls'
 import Actions from './Actions'
 import Details from './Details'
-import Message from './Message'
+import MessageBox from './MessageBox'
 import Map from './Map'
 import axios from 'axios'
 
@@ -513,11 +513,11 @@ const getCoinBalance = () => {
           coordinates={currentRoom.coordinates}
           exits={currentRoom.exits}
           items={currentRoom.items}
-          
-          
-          
           />
-  <Message/></>): (null)}
+          <MessageBox
+            messages={currentRoom.messages}
+          />
+          </>): (null)}
           
         </div>
       </div>
