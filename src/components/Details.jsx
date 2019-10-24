@@ -12,6 +12,8 @@ import axios from 'axios';
 const Details = (props) => {
 	const [detailsTable, setDetails] = useState();
 		return (
+			
+			
 		<div>
 			<table>
 				<tr>
@@ -29,6 +31,14 @@ const Details = (props) => {
 				<tr>
 					<th>Coordinates:</th>
 					<th>{props.coordinates}</th>
+				</tr>
+				<tr>
+					<th>Items:</th>
+					<th>{props.items}</th>
+				</tr>
+				<tr>
+					<th>Exits:</th>
+					<th>{props.exits}</th>
 				</tr>
 			</table>
 		</div>
