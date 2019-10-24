@@ -5,14 +5,21 @@ const Map = ({allRooms, currentRoom, getAllRooms}) => {
   console.log("all rooms", allRooms)
   console.log("get all", getAllRooms)
   if (allRooms) {
+    // let columns = 60 
+    // let newArray =[]
+    // for(let y = 0; y < columns; y++){
+    //   for(let x = 0; x < columns; x++){
+
+    //   }
+    // }
+    // for loop, make a new array for the coordinates, with dynamic max-x and max-y variables to resize the map
   return(
     <div className="mapper-wrapper">
+      <p>It's a Map.</p>  {/* SANITY CHECK */}
+      <div className="map-wrap">
       {allRooms.map(room => {
-        console.log("each room", room)
-        
         return (
-          <div className="map-wrap">
-            <p>It's a Map.</p>  {/* SANITY CHECK */}
+          
             <div
               key={room.room_id}
               className="room-wrap"
@@ -23,17 +30,18 @@ const Map = ({allRooms, currentRoom, getAllRooms}) => {
                 borderBottom: room.exits.includes("s") ? "none" : "2px solid #e3e3e3",
               }}
             >
-              <p classname="room-icon">
+              {/* <p classname="room-icon">
                 {room.title === allRooms.title ? (
                   <i id='fa-street-view' className="fa fa-street-view"></i>
                 ) : (
                     <i id='fa-circle' className="fas fa-circle"></i>
                 )}
-              </p> 
+              </p>  */}
             </div>
-          </div>
+          
         )
       })} 
+      </div>
     </div>
   )
   }

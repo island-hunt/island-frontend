@@ -168,13 +168,8 @@ useEffect(() => {
 // title: "A misty room"
 
   return (
-<<<<<<< HEAD
-    <div className="wrapper">
-      <p className="">Treasure Island</p>
-=======
     <div className="wrapper" onClick={()=>{testIt()}}>
       <p>Treasure Island</p>
->>>>>>> master
       <div className="top-wrap">
         <div className="map-wrapper">
           <Map getAllRooms={getAllRooms} allRooms={allRooms} currentRoom={currentRoom}/>
@@ -209,68 +204,9 @@ useEffect(() => {
 };
 
 
-<<<<<<< HEAD
-const testIt = () => {
-let roomData ={
-"coordinates": "aa",
-"description": "bb",
-"elevation": "cc",
-"exits": "dd",
-"items": "ee",
-"room_id": "ff",
-"terrain": "gg",
-"title": "hh",
-}
-saveARoom(roomData)
-}
-// ================== MAGIC CODE HERE ===================
-axios.interceptors.request.use(
-options => {options.headers.authorization = `Token ${key}`
-return options},
-error => {return Promise.reject(error)}
-)
-// ================== OUR API ENDPOINTS ===================
-const getAllRooms = () => {
-  axios
-    .get(
-      ourDB
-    )
-    .then(response => {
-      console.log(response.data)
-      return response.data
-    })
-    .catch(error => {console.log(error.message);})
-}
-// Returns an array of rooms containing the following data points:
-// coordinates: "xx"
-// description: "xx"
-// elevation: "xx"
-// exits: "xx"
-// id: 1  <== this is the DB ID, NOT the room ID
-// items: "xx"
-// room_id: "xx"
-// terrain: "xx"
-// title: "xx"
-//========================================================
-const saveARoom = (roomData) => {
-  axios
-    .post(
-      ourDB,
-      {roomData}
-    )
-    .then(response => {
-      console.log(response.data)
-      return response.data
-    })
-    .catch(error => {console.log(error.message);})
-}
-//========================================================
-//================== THE API ENDPOINTS ===================
-=======
 
 
 // ================== THE API ENDPOINTS ===================
->>>>>>> master
 const getStatus = () => {
   let newUrl = `${baseUrl}status/`
   console.log(newUrl)
