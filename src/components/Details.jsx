@@ -10,37 +10,14 @@ import axios from 'axios';
 // }
 
 const Details = (props) => {
-	const [detailsTable, setDetails] = useState();
 		return (
-			
-			
-		<div>
-			<table>
-				<tr>
-					<th>Room Id:</th>
-					<th>{props.room_id}</th>
-				</tr>
-				<tr>
-					<th>Title:</th>
-					<th>{props.title}</th>
-				</tr>
-				<tr>
-					<th>Description:</th>
-					<th>{props.description}</th>
-				</tr>
-				<tr>
-					<th>Coordinates:</th>
-					<th>{props.coordinates}</th>
-				</tr>
-				<tr>
-					<th>Items:</th>
-					<th>{props.items}</th>
-				</tr>
-				<tr>
-					<th>Exits:</th>
-					<th>{props.exits}</th>
-				</tr>
-			</table>
+		<div className="details">
+			<p>Room ID: {props.room_id}</p>
+			<p>Title: {props.title}</p>
+			<p>Description: {props.description}</p>
+			<p>Coordinates: {props.coordinates}</p>
+			<p>Items: {props.items}</p>
+			<p>Exits: {props.exits}</p>
 		</div>
 	)
 };
