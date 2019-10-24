@@ -27,13 +27,46 @@ const Main = props => {
   const [coolDown, setCoolDown] = useState(0)
   const [status, setStatus] = useState()
   const [messageLog, setMessageLog] = useState([]);
-
+  const [gameMap, setMap] = useState()
+  
   const initialSetup = async()=>{
     setAllRooms(await getAllRooms());
     setCurrentRoom(await initPlayer());
-    // setStatus(await getStatus())
   }
   
+useEffect(() => {
+  let minMax = 100;
+  const mapArr = []
+  for(let row=0;row<minMax; row++){
+    mapArr.push(new Array(1))
+    for(let col=0;col<minMax-1;col++){
+      mapArr[row].push("empty")
+    }
+    }
+  setMap(mapArr)
+  
+  }
+,[])
+
+useEffect(() => {
+  if(!(allRooms && gameMap)){return} 
+  let newStuff = gameMap
+  console.log(newStuff)
+  console.log(allRooms)
+  for(let i=0;i<allRooms.length;i++){
+    let newThing = []
+    let coords = allRooms[i].coordinates
+    coords = coords.replace(")","")
+    coords = coords.replace("(","")
+    coords = coords.split(',')
+    console.log("logging the coords ",coords[1],coords[0])
+    let rowNum = parseInt(coords[1])
+    let colNum = parseInt(coords[0])
+    newThing.push(allRooms[i])
+    gameMap[colNum][rowNum] = newThing
+  }
+  }
+,[allRooms])
 
 
 useEffect(() => {
@@ -505,7 +538,7 @@ const getCoinBalance = () => {
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map allRooms={allRooms}/>
+          <Map gameMap={gameMap}/>
         </div>
         <div className="message-wrapper">
         {currentRoom ? (<><Details
