@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Controls from './Controls'
 import Actions from './Actions'
-// import Details from './Details'
-// import Message from './Message'
+import Details from './Details'
+import Message from './Message'
 import Map from './Map'
 import axios from 'axios'
 
@@ -25,19 +25,37 @@ const Main = props => {
   const [allRooms,setAllRooms] = useState()
   const [currentRoom, setCurrentRoom] = useState()
   const [coolDown, setCoolDown] = useState(0)
+  const [status, setStatus] = useState()
 
   const initialSetup = async()=>{
     setAllRooms(await getAllRooms());
     setCurrentRoom(await initPlayer());
+    // setStatus(await getStatus())
   }
   
- 
+
 
 useEffect(() => {
   
  initialSetup()
  
 }, [])
+
+useEffect(() => {
+    // exit early when we reach 0
+    if (!coolDown) return;
+
+    // save intervalId to clear the interval when the
+    // component re-renders
+    const intervalId = setInterval(() => {
+      setCoolDown(coolDown - 1);
+    }, 1000);
+
+    // clear interval on re-render to avoid memory leaks
+    return () => clearInterval(intervalId);
+    // add timeLeft as a dependency to re-rerun the effect
+    // when we update it
+  }, [coolDown]);
 
 
  const testIt = ()=>{
@@ -68,7 +86,8 @@ useEffect(() => {
   const checkIfVisited = (roomID) => {
     if(allRooms){
       for(let i=0;i< allRooms.length;i++){
-          let testID = allRooms[i].room_id
+          let testID = parseInt(allRooms[i].room_id)
+          console.log("checking this: ",roomID, " versus this: ", testID)
           if(testID === roomID){
             console.log("we've seen this room before")
             return true;
@@ -106,6 +125,7 @@ useEffect(() => {
       .then(response => {
         console.log(response.data)
         console.log('saved to our DB')
+        getAllRooms()
       })
       .catch(error => {console.log(error.message);})
   }
@@ -116,7 +136,7 @@ useEffect(() => {
       .get(
         newUrl
       );
-      
+      setCoolDown(res.data.cooldown)
       return res.data
         
   }
@@ -142,6 +162,7 @@ useEffect(() => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
       setCurrentRoom(response.data)
       let newRoom = response.data
       if(!checkIfVisited(newRoom.room_id)){
@@ -167,46 +188,27 @@ useEffect(() => {
 // terrain: "NORMAL"
 // title: "A misty room"
 
-  return (
-    <div className="wrapper" onClick={()=>{testIt()}}>
-      <p>Treasure Island</p>
-      <div className="top-wrap">
-        <div className="map-wrapper">
-          <Map allRooms={allRooms}/>
-        </div>
-        <div className="message-wrapper">
-          {/* <Details/>
-          <Message/> */}
-        </div>
-      </div>
-      <div className="bottom-wrap">
-        <Controls movePlayer={movePlayer} moveWise={moveWisePlayer}/>
-        <Actions 
-          receiveThing={receiveThing}
-          takeTreasure={takeTreasure}
-          dropTreasure={dropTreasure}
-          sellTreasure={sellTreasure}
-          confirmSellTreasure={confirmSellTreasure}
-          wearThing={wearThing}
-          examineThing={examineThing}
-          carryThing={carryThing}
-          pray={pray}
-          flyPlayer={flyPlayer}
-          dash={dashPlayer}
-          transMog={transMog}
-          changeName={changeName}
-          getStatus={getStatus}
-          getCoinBalance={getCoinBalance}
-        />
-      </div>
-    </div>
-  )
-};
+const takeTreasure = () => {
+  let newUrl = `${baseUrl}take/`
+  if(!currentRoom.items){return}
+  for(let i=0;i<currentRoom.items.length;i++) {
+    if(currentRoom.items[i].includes("treasure")){
 
+  axios
+    .post(
+      newUrl,
+      {"name": currentRoom.items[i]}
+    )
+    .then(response => {
+      setCoolDown(response.data.cooldown)
+      console.log(response.data)
+    })
+    .catch(error => {console.log(error.message);})
+}
+    }
+  }
 
-
-
-// ================== THE API ENDPOINTS ===================
+  // ================== THE API ENDPOINTS ===================
 const getStatus = () => {
   let newUrl = `${baseUrl}status/`
   console.log(newUrl)
@@ -216,6 +218,8 @@ const getStatus = () => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
+      setStatus(response.data)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -242,6 +246,8 @@ const flyPlayer = (dir) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
+      
     })
     .catch(error => {console.log(error.message);})
 }
@@ -255,6 +261,7 @@ const dashPlayer = (dir,numRooms,dashRoomIDs) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -268,6 +275,7 @@ const moveWisePlayer = (dir,next) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -284,19 +292,7 @@ const moveWisePlayer = (dir,next) => {
 // terrain: "NORMAL"
 // title: "A misty room"
 //========================================================
-const takeTreasure = (treasure) => {
-  let newUrl = `${baseUrl}take/`
-  axios
-    .post(
-      newUrl,
-      {"name": treasure}
-    )
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(error => {console.log(error.message);})
-}
-//========================================================
+
 const dropTreasure = (treasure) => {
   let newUrl = `${baseUrl}drop/`
   axios
@@ -306,6 +302,7 @@ const dropTreasure = (treasure) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -319,6 +316,7 @@ const sellTreasure = (treasure) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -334,17 +332,24 @@ const sellTreasure = (treasure) => {
 //   "errors": [],
 //   "messages": ["I'll give you 100 gold for that Small Treasure.", "(include 'confirm':'yes' to sell Small Treasure)"]
 // }
-const confirmSellTreasure = (treasure) => {
+const confirmSellTreasure = () => {
   let newUrl = `${baseUrl}sell/`
-  axios
-    .post(
-      newUrl,
-      {"name": treasure, "confirm":"yes"}
-    )
-    .then(response => {
-      console.log(response.data)
-    })
+  if(!status.inventory){return}
+  for(let i=0;i<status.inventory.length;i++){
+    if(status.inventory[i].includes("treasure")){
+      axios
+          .post(
+            newUrl,
+            {"name": status.inventory[i], "confirm":"yes"}
+          )
+          .then(response => {
+            console.log(response.data)
+            setCoolDown(response.data.cooldown)
+          })
     .catch(error => {console.log(error.message);})
+    }
+  }
+  
 }
 //========================================================
 const examineThing = (thing) => {
@@ -356,6 +361,7 @@ const examineThing = (thing) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -369,6 +375,7 @@ const wearThing = (thing) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -382,6 +389,7 @@ const changeName = (name) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -395,6 +403,7 @@ const transMog = (name) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -407,6 +416,7 @@ const pray = () => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -420,6 +430,7 @@ const carryThing = (thing) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -433,6 +444,7 @@ const receiveThing = (thing) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -446,6 +458,7 @@ const mine = (proof) => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -458,6 +471,7 @@ const getLastProof = () => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -475,6 +489,7 @@ const getCoinBalance = () => {
     )
     .then(response => {
       console.log(response.data)
+      setCoolDown(response.data.cooldown)
     })
     .catch(error => {console.log(error.message);})
 }
@@ -482,6 +497,60 @@ const getCoinBalance = () => {
   //  "messages": ["You have a balance of 35.0 Lambda Coins"],
   //  "errors": []
 //========================================================
+//========================================================
+  return (
+    <div className="wrapper">
+      <p>Treasure Island</p>
+      <div className="top-wrap">
+        <div className="map-wrapper">
+          <Map allRooms={allRooms}/>
+        </div>
+        <div className="message-wrapper">
+        {currentRoom ? (<><Details
+          title={currentRoom.title}
+          room_id={currentRoom.room_id}
+          description={currentRoom.description}
+          coordinates={currentRoom.coordinates}
+          exits={currentRoom.exits}
+          items={currentRoom.items}
+          
+          
+          
+          />
+  <Message/></>): (null)}
+          
+        </div>
+      </div>
+      <div className="bottom-wrap">
+        <Controls movePlayer={movePlayer} moveWise={moveWisePlayer}/>
+        <h1>{coolDown}</h1>
+        <Actions 
+          receiveThing={receiveThing}
+          takeTreasure={takeTreasure}
+          dropTreasure={dropTreasure}
+          sellTreasure={sellTreasure}
+          confirmSellTreasure={confirmSellTreasure}
+          wearThing={wearThing}
+          examineThing={examineThing}
+          carryThing={carryThing}
+          pray={pray}
+          flyPlayer={flyPlayer}
+          dash={dashPlayer}
+          transMog={transMog}
+          changeName={changeName}
+          getStatus={getStatus}
+          getCoinBalance={getCoinBalance}
+        />
+      </div>
+    </div>
+  )
+}
+
+
+
+
+
+
 
 
 
