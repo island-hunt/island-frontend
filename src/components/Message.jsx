@@ -1,4 +1,5 @@
 import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
 
 // Tie in state from response
 // {
@@ -6,10 +7,13 @@ import React from 'react';
 // }
 
 const Message = (props) => {
-	console.log("message", props)
+	// console.log("message", props)
 	return (
 		<div>
-			<li>{props.message}</li>
+			{props.message}
+			{/*<ListItem*/}
+			{/*	primaryText={props.message}*/}
+			{/*/>*/}
 		</div>
 	)
 };

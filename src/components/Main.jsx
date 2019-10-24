@@ -26,6 +26,7 @@ const Main = props => {
   const [currentRoom, setCurrentRoom] = useState()
   const [coolDown, setCoolDown] = useState(0)
   const [status, setStatus] = useState()
+  const [messageLog, setMessageLog] = useState([]);
 
   const initialSetup = async()=>{
     setAllRooms(await getAllRooms());
@@ -162,8 +163,9 @@ useEffect(() => {
     )
     .then(response => {
       console.log(response.data)
-      setCoolDown(response.data.cooldown)
-      setCurrentRoom(response.data)
+      setCoolDown(response.data.cooldown);
+      setCurrentRoom(response.data);
+      setMessageLog([...messageLog, response.data.messages]);
       let newRoom = response.data
       if(!checkIfVisited(newRoom.room_id)){
         console.log("we are saving this room")
@@ -515,7 +517,7 @@ const getCoinBalance = () => {
           items={currentRoom.items}
           />
           <MessageBox
-            messages={currentRoom.messages}
+            messages={messageLog}
           />
           </>): (null)}
           
