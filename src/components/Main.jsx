@@ -536,7 +536,8 @@ const getCoinBalance = () => {
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map gameMap={gameMap}/>
+        {gameMap ? <Map gameMap={gameMap}/> : null}
+          
         </div>
         <div className="message-wrapper">
         {currentRoom ? (<><Details

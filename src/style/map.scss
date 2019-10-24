@@ -1,23 +1,25 @@
 // map styles
+.mapper-wrapper{
 
+}
 .map-wrap {
-    height: 490px;
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 500px;
+    width: 500px;
     background: $treasurePrimary;
     color: $treasureWhite;
 
-    .room-wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 10px;
-        width: 10px;
-        #av-street-view {
-            font-size: 2rem;
-        }
-        
-        #fa-circle {
-            font-size: 1rem;
-        }
+
+    .blah{
+        width: 5px;
+        height: 5px;
+        background: gray;
+    }
+
+    .room-wrap{
+        width: 5px;
+        height: 5px;
+        background: blue;
     }
 }
