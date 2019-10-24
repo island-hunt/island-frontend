@@ -24,30 +24,34 @@ error => {return Promise.reject(error)}
 const Main = props => {
   const [allRooms,setAllRooms] = useState()
   const [currentRoom, setCurrentRoom] = useState()
+  const [coolDown, setCoolDown] = useState(0)
 
-
+  const initialSetup = async()=>{
+    setAllRooms(await getAllRooms());
+    setCurrentRoom(await initPlayer());
+  }
   
-  useEffect(() => {
-    //init player
-    console.log(currentRoom)
-    //grab all the rooms
-    console.log(allRooms)
-  },[allRooms, currentRoom])
+ 
+
+useEffect(() => {
+  
+ initialSetup()
+ 
+}, [])
 
 
+ const testIt = ()=>{
+   movePlayer('s')
+ } 
 
   // ================== OUR API ENDPOINTS ===================
-  const getAllRooms = () => {
-    axios
+  const getAllRooms = async () => {
+    let res = await axios
       .get(
         ourDB
-      )
-      .then(response => {
-        setAllRooms(response.data)
-        console.log(response.data)
-        console.log(allRooms)
-      })
-      .catch(error => {console.log(error.message);})
+      );
+        return res.data
+        
   }
   // Returns an array of rooms containing the following data points:
   // coordinates: "xx"
@@ -60,30 +64,61 @@ const Main = props => {
   // terrain: "xx"
   // title: "xx"
   //========================================================
-  const saveARoom = (roomData) => {
+  
+  const checkIfVisited = (roomID) => {
+    if(allRooms){
+      for(let i=0;i< allRooms.length;i++){
+          let testID = allRooms[i].room_id
+          if(testID === roomID){
+            console.log("we've seen this room before")
+            return true;
+          }
+          
+        }
+
+        console.log("never seen this room before")
+        return false;
+        
+                
+        
+          }
+          console.log("no room data to check")
+    
+  }
+  
+  const saveARoom = async (roomData) => {
+    let parsed = {
+      "coordinates": roomData.coordinates,
+      "description": roomData.description,
+      "elevation": roomData.elevation,
+      "exits": roomData.exits,
+      "items": roomData.items,
+      "room_id": roomData.room_id,
+      "terrain": roomData.terrain,
+      "title": roomData.title
+    }
     console.log(roomData)
-    axios
+    let res = await axios
       .post(
         ourDB,
-        roomData
+        parsed
       )
       .then(response => {
         console.log(response.data)
-        return response.data
+        console.log('saved to our DB')
       })
       .catch(error => {console.log(error.message);})
   }
   //========================================================
-  const initPlayer = () => {
+  const initPlayer =  async () => {
     let newUrl = `${baseUrl}init/`
-    axios
+    let res = await axios
       .get(
         newUrl
-      )
-      .then(response => {
-        setCurrentRoom(response.data)
-      })
-      .catch(error => {console.log(error.message);})
+      );
+      
+      return res.data
+        
   }
   // cooldown: 1
   // coordinates: "(60,61)"
@@ -98,15 +133,42 @@ const Main = props => {
   // terrain: "NORMAL"
   // title: "A misty room"
   //========================================================
-  useEffect(() => {
-      getAllRooms()
-      initPlayer()
-    }
-  ,[])
-  
-  
+  const movePlayer = (dir) => {
+  let newUrl = `${baseUrl}move/`
+  axios
+    .post(
+      newUrl,
+      {"direction": dir}
+    )
+    .then(response => {
+      console.log(response.data)
+      setCurrentRoom(response.data)
+      let newRoom = response.data
+      if(!checkIfVisited(newRoom.room_id)){
+        console.log("we are saving this room")
+        saveARoom(newRoom)
+      }
+      else{
+        console.log("we've been here before")
+      }
+    })
+    .catch(error => {console.log(error.message);})
+}
+// cooldown: 15
+// coordinates: "(60,62)"
+// description: "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction."
+// elevation: 0
+// errors: []
+// exits: (3) ["n", "s", "w"]
+// items: []
+// messages: ["You have walked north."]
+// players: (2) ["player245", "player289"]
+// room_id: 19
+// terrain: "NORMAL"
+// title: "A misty room"
+
   return (
-    <div className="wrapper">
+    <div className="wrapper" onClick={()=>{testIt()}}>
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
@@ -170,30 +232,7 @@ const getStatus = () => {
 // strength: 10
 //========================================================
 
-const movePlayer = (dir) => {
-  let newUrl = `${baseUrl}move/`
-  axios
-    .post(
-      newUrl,
-      {"direction": dir}
-    )
-    .then(response => {
-      console.log(response.data)
-    })
-    .catch(error => {console.log(error.message);})
-}
-// cooldown: 15
-// coordinates: "(60,62)"
-// description: "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction."
-// elevation: 0
-// errors: []
-// exits: (3) ["n", "s", "w"]
-// items: []
-// messages: ["You have walked north."]
-// players: (2) ["player245", "player289"]
-// room_id: 19
-// terrain: "NORMAL"
-// title: "A misty room"
+
 const flyPlayer = (dir) => {
   let newUrl = `${baseUrl}fly/`
   axios
@@ -207,12 +246,12 @@ const flyPlayer = (dir) => {
     .catch(error => {console.log(error.message);})
 }
 
-const dashPlayer = (dir,numRooms,roomIDs) => {
+const dashPlayer = (dir,numRooms,dashRoomIDs) => {
   let newUrl = `${baseUrl}dash/`
   axios
     .post(
       newUrl,
-      {"direction": dir, "num_rooms": numRooms, "next_room_ids": roomIDs}
+      {"direction": dir, "num_rooms": numRooms, "next_room_ids": dashRoomIDs}
     )
     .then(response => {
       console.log(response.data)
