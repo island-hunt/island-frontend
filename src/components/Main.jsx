@@ -188,51 +188,11 @@ useEffect(() => {
 // terrain: "NORMAL"
 // title: "A misty room"
 
-<<<<<<< HEAD
-  return (
-    <div className="wrapper" onClick={()=>{testIt()}}>
-      <p>Treasure Island</p>
-      <div className="top-wrap">
-        <div className="map-wrapper">
-          <Map getAllRooms={getAllRooms} allRooms={allRooms} currentRoom={currentRoom}/>
-        </div>
-        <div className="message-wrapper">
-          {/* <Details/>
-          <Message/> */}
-        </div>
-      </div>
-      <div className="bottom-wrap">
-        <Controls movePlayer={movePlayer} moveWise={moveWisePlayer}/>
-        <Actions 
-          receiveThing={receiveThing}
-          takeTreasure={takeTreasure}
-          dropTreasure={dropTreasure}
-          sellTreasure={sellTreasure}
-          confirmSellTreasure={confirmSellTreasure}
-          wearThing={wearThing}
-          examineThing={examineThing}
-          carryThing={carryThing}
-          pray={pray}
-          flyPlayer={flyPlayer}
-          dash={dashPlayer}
-          transMog={transMog}
-          changeName={changeName}
-          getStatus={getStatus}
-          getCoinBalance={getCoinBalance}
-        />
-      </div>
-    </div>
-  )
-};
-
-
-=======
 const takeTreasure = () => {
   let newUrl = `${baseUrl}take/`
   if(!currentRoom.items){return}
   for(let i=0;i<currentRoom.items.length;i++) {
     if(currentRoom.items[i].includes("treasure")){
->>>>>>> master
 
   axios
     .post(
