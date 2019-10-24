@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Controls from './Controls'
 import Actions from './Actions'
 import Details from './Details'
-import Message from './Message'
+import MessageBox from './MessageBox'
 import Map from './Map'
 import axios from 'axios'
 
@@ -26,8 +26,9 @@ const Main = props => {
   const [currentRoom, setCurrentRoom] = useState()
   const [coolDown, setCoolDown] = useState(0)
   const [status, setStatus] = useState()
+  const [messageLog, setMessageLog] = useState([]);
   const [gameMap, setMap] = useState()
-
+  
   const initialSetup = async()=>{
     setAllRooms(await getAllRooms());
     setCurrentRoom(await initPlayer());
@@ -195,8 +196,9 @@ useEffect(() => {
     )
     .then(response => {
       console.log(response.data)
-      setCoolDown(response.data.cooldown)
-      setCurrentRoom(response.data)
+      setCoolDown(response.data.cooldown);
+      setCurrentRoom(response.data);
+      setMessageLog([...messageLog, response.data.messages]);
       let newRoom = response.data
       if(!checkIfVisited(newRoom.room_id)){
         console.log("we are saving this room")
@@ -546,11 +548,11 @@ const getCoinBalance = () => {
           coordinates={currentRoom.coordinates}
           exits={currentRoom.exits}
           items={currentRoom.items}
-          
-          
-          
           />
-  <Message/></>): (null)}
+          <MessageBox
+            messages={messageLog}
+          />
+          </>): (null)}
           
         </div>
       </div>

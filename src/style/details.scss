@@ -1,0 +1,16 @@
+// Details Styles
+.details {
+  padding: 2%;
+
+  p {
+    border: 2px solid $treasureGray;
+    margin: 1% 0;
+    box-sizing: border-box;
+    font-size: .8em;
+    padding: 0 1%;
+  }
+  // Room ID
+  p:nth-child(1) {
+    display: none;
+  }
+}

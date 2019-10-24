@@ -1,0 +1,17 @@
+//MessageBox and Message Styles
+
+.message-box {
+  border: 1px solid black;
+  margin: 2%;
+  //height: 23%;
+  overflow: hidden;
+
+}
+.message {
+  border: 1px solid red;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+.fixedsize {
+  border: 1px solid red;
+}
