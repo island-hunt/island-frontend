@@ -23,9 +23,13 @@ const Map = ({gameMap}) => {
               return(<div className="blah"/>)
               
             } else {
+              
+                let coords = room.room_id
               return(
             <div key={room.coordinates}
-              className="room-wrap" id={room.coordinates}/>
+              className="room-wrap">
+              <span className="tooltiptext">{room.id}</span></div>
+              
               )
               }}
 
