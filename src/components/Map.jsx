@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Map = ({gameMap}) => {
-  console.log(gameMap)
+  // console.log(gameMap)
   let mapArray = []
   for(let col=0; col<100; col++){
     for(let row=1;row<100;row++){
@@ -13,7 +13,7 @@ const Map = ({gameMap}) => {
         mapArray.push("blah");
       }
     }
-  console.log(mapArray)
+  // console.log(mapArray)
   }
   return(
     <div className="mapper-wrapper">
@@ -24,11 +24,11 @@ const Map = ({gameMap}) => {
               
             } else {
               
-                let coords = room.room_id
+                
               return(
             <div key={room.coordinates}
               className="room-wrap">
-              <span className="tooltiptext">{room.id}</span></div>
+              </div>
               
               )
               }}
