@@ -560,7 +560,7 @@ const getCoinBalance = () => {
       </div>
       <div className="bottom-wrap">
         <Controls movePlayer={movePlayer} moveWise={moveWisePlayer}/>
-        <h1>{coolDown}</h1>
+        <h1 className="cooldown">{coolDown}</h1>
         <Actions 
           receiveThing={receiveThing}
           takeTreasure={takeTreasure}

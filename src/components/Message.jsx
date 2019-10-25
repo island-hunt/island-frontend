@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 const Message = (props) => {
 	// console.log("message", props)
 	return (
-		<div>
+		<div className="message">
 			{props.message}
 			{/*<ListItem*/}
 			{/*	primaryText={props.message}*/}

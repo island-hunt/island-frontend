@@ -31,5 +31,12 @@
         width: 100%;
         display: flex;
         justify-content: space-around;
+
+        .cooldown {
+            width: 10%;
+            text-align: center;
+            margin: 10px 0 10px 10px;
+            color: $treasurePrimary
+        }
     }
 }

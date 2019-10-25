@@ -19,6 +19,9 @@ const Map = ({gameMap, currentRoom}) => {
     <div className="mapper-wrapper">
       <div className="map-wrap">
       {mapArray.map(room =>{
+        // if(room.coordinates === currentRoom.coordinates){
+        //   return(<div className="me"/>)
+        // }
         if(room === "blah"){
           return(<div className="blah"/>)
           
