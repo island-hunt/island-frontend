@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Map = ({gameMap}) => {
+const Map = ({gameMap, currentRoom}) => {
   // console.log(gameMap)
   let mapArray = []
   for(let col=0; col<100; col++){

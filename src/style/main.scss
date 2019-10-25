@@ -4,6 +4,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 
     p {
         margin: 0;
@@ -13,6 +14,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        box-sizing: border-box;
 
         .map-wrapper {
             width: 75%;

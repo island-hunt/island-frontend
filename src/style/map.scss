@@ -10,20 +10,23 @@
         width: 500px;
         background: $treasurePrimary;
         color: $treasureWhite;
-        border: 2px solid $treasureGray;
+        border: 1px solid $treasureGray;
+        box-sizing: border-box;
 
 
         .blah{
             width: 5px;
             height: 5px;
-            background: gray;
+            background: $treasurePrimary;
+            box-sizing: border-box;
         }
 
         .room-wrap{
             position: relative;
             width: 5px;
             height: 5px;
-            background: blue;
+            background: $treasureGray;
+            box-sizing: border-box;
         }
 
 
