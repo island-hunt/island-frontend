@@ -51,17 +51,17 @@ useEffect(() => {
 useEffect(() => {
   if(!(allRooms && gameMap)){return} 
   let newStuff = gameMap
-  console.log(newStuff)
-  console.log(allRooms)
+  // console.log(newStuff)
+  // console.log(allRooms)
   for(let i=0;i<allRooms.length;i++){
     let newThing = []
     let coords = allRooms[i].coordinates
     coords = coords.replace(")","")
     coords = coords.replace("(","")
     coords = coords.split(',')
-    console.log("logging the coords ",coords[1],coords[0])
-    let rowNum = parseInt(coords[1])
-    let colNum = parseInt(coords[0])
+    // console.log("logging the coords ",coords[1],coords[0])
+    let rowNum = parseInt(coords[0])
+    let colNum = parseInt(coords[1])
     newThing.push(allRooms[i])
     gameMap[colNum][rowNum] = newThing
   }
@@ -210,6 +210,7 @@ useEffect(() => {
     })
     .catch(error => {console.log(error.message);})
 }
+getAllRooms()
 // cooldown: 15
 // coordinates: "(60,62)"
 // description: "You are standing on grass and surrounded by a dense mist. You can barely make out the exits in any direction."
@@ -538,7 +539,8 @@ const getCoinBalance = () => {
       <p>Treasure Island</p>
       <div className="top-wrap">
         <div className="map-wrapper">
-          <Map gameMap={gameMap}/>
+        {gameMap ? <Map gameMap={gameMap}/> : null}
+          
         </div>
         <div className="message-wrapper">
         {currentRoom ? (<><Details
