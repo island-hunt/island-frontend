@@ -51,15 +51,15 @@ useEffect(() => {
 useEffect(() => {
   if(!(allRooms && gameMap)){return} 
   let newStuff = gameMap
-  console.log(newStuff)
-  console.log(allRooms)
+  // console.log(newStuff)
+  // console.log(allRooms)
   for(let i=0;i<allRooms.length;i++){
     let newThing = []
     let coords = allRooms[i].coordinates
     coords = coords.replace(")","")
     coords = coords.replace("(","")
     coords = coords.split(',')
-    console.log("logging the coords ",coords[1],coords[0])
+    // console.log("logging the coords ",coords[1],coords[0])
     let rowNum = parseInt(coords[1])
     let colNum = parseInt(coords[0])
     newThing.push(allRooms[i])
@@ -121,7 +121,7 @@ useEffect(() => {
     if(allRooms){
       for(let i=0;i< allRooms.length;i++){
           let testID = parseInt(allRooms[i].room_id)
-          console.log("checking this: ",roomID, " versus this: ", testID)
+          // console.log("checking this: ",roomID, " versus this: ", testID)
           if(testID === roomID){
             console.log("we've seen this room before")
             return true;

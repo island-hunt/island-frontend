@@ -1,6 +1,6 @@
 import React from 'react';
 import Message from './Message'
-import { FixedSizeList } from 'react-window';
+// import { FixedSizeList } from 'react-window';
 
 
 

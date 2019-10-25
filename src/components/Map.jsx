@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Map = ({allRooms, currentRoom, getAllRooms}) => {
-  console.log("current room", currentRoom)
-  console.log("all rooms", allRooms)
-  console.log("get all", getAllRooms)
+  // console.log("current room", currentRoom)
+  // console.log("all rooms", allRooms)
+  // console.log("get all", getAllRooms)
   if (allRooms) {
     // let columns = 60 
     // let newArray =[]
